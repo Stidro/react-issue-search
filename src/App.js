@@ -1,7 +1,9 @@
 import React from 'react';
 
+import IssueSearchPage from './pages/IssueSearchPage';
+
 function App() {
-  return <h1>Hi</h1>;
+  return <IssueSearchPage />;
 }
 
 export default App;
