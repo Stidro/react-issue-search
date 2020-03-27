@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Input, IssueList } from 'components';
 import { useDebouncedState } from 'hooks';
 import { getIssues } from 'services';
+import { keyCodes } from '../constants';
 
 import styles from './IssueSearchPage.module.scss';
 
@@ -23,7 +24,8 @@ export default () => {
     };
 
     setSelectedIndex(-1);
-    query ? searchIssues() : setIssues([]);
+    setIssues([]);
+    query && searchIssues();
   }, [query]);
 
   const handleSearch = e => {
@@ -33,9 +35,9 @@ export default () => {
   const handleKeyDown = useCallback(
     e => {
       switch (e.keyCode) {
-        case 38: // Up
+        case keyCodes.ARROW_UP:
           return selectedIndex > -1 && setSelectedIndex(selectedIndex - 1);
-        case 40: // Down
+        case keyCodes.ARROW_DOWN:
           return (
             selectedIndex < issues.length - 1 &&
             setSelectedIndex(selectedIndex + 1)
