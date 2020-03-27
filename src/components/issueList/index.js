@@ -4,16 +4,26 @@ import IssueItem from '../issueItem';
 
 import styles from './IssueList.module.scss';
 
-const IssueList = ({ items, ...props }) => {
+const IssueList = ({ items, selectedIndex, ...props }) => {
   const issueItems = useMemo(
     () =>
-      items.map(({ id, title, labels, url }) => (
-        <IssueItem key={id} title={title} labels={labels} url={url} />
+      items.map(({ id, title, labels, url }, idx) => (
+        <IssueItem
+          key={id}
+          title={title}
+          labels={labels}
+          url={url}
+          selected={selectedIndex === idx}
+        />
       )),
-    [items]
+    [items, selectedIndex]
   );
 
-  return <div className={styles['issue-list']}>{issueItems}</div>;
+  return (
+    <div className={styles['issue-list']} {...props}>
+      {issueItems}
+    </div>
+  );
 };
 
 export default IssueList;

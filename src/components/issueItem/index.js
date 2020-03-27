@@ -1,10 +1,15 @@
 import React, { useMemo } from 'react';
+import cn from 'classnames';
 
 import Label from '../label';
 
 import styles from './IssueItem.module.scss';
 
-const IssueItem = ({ title, labels = [], url, ...props }) => {
+const IssueItem = ({ title, labels = [], url, selected, ...props }) => {
+  const computedClassNames = cn(styles['issue-item'], {
+    [styles['issue-selected']]: selected
+  });
+
   const labelItems = useMemo(
     () =>
       labels.map(({ id, name, color }) => (
@@ -16,7 +21,7 @@ const IssueItem = ({ title, labels = [], url, ...props }) => {
   );
 
   return (
-    <div className={styles['issue-item']} {...props}>
+    <div className={computedClassNames} {...props}>
       <a href={url} className={styles['issue-title']}>
         {title}
       </a>
